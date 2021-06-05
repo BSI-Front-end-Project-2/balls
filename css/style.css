@@ -1,0 +1,13 @@
+#canvasContainer {
+  display: block;
+  margin: 0 auto;
+  padding: 0;
+  background-color: #f8f8f8;
+  max-width: 100%;
+}
+
+#container {
+  text-align: center;
+  margin: 0 auto;
+  width: fit-content;
+}
