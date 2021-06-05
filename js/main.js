@@ -3,6 +3,26 @@
   let canvas, ctx, gravity, friction, ball;
   var balls = [];
 
+  function newBall(){
+    balls.push( ball = {
+      bounce: 0.75,
+      radius: 30,
+      x: Math.floor(Math.random() * canvas.width),
+      y: Math.floor(Math.random() * canvas.height),
+      //TODO: change velX,velY with user mouse speed
+      velX: (Math.random() * 15 + 5) * (Math.floor(Math.random() * 2 || -1)),
+      velY: (Math.random() * 15 + 5) * (Math.floor(Math.random() * 2 || -1))
+    });
+  }
+  // TODO -->
+  function ballSizeInc() {}
+  function ballSizeDec() {}
+  function bouncingDec() {}
+  function speedInc() {}
+  function pause() {}
+  function colorPal(){}
+
+  // End TODO <--
   function init() {
     canvas = document.getElementById('ballsCanvas');
     ctx = canvas.getContext('2d');
@@ -11,28 +31,21 @@
     canvas.height = 800;
 
     gravity = 0.25;
-    friction = 0.95;
+    friction = 0;
 
     //TODO: Make a script that get the max widht of a device and sottrae the canvas width
-    canvas.onmousemove = function (e) {
-      //ball.x = e.clientX - 450;
-      //ball.y = e.clientY - 40;
+    canvas.onmouseover = function (e) {
+      ball.x = e.clientX - 450;
+      ball.y = e.clientY - 40;
+      newBall();
     };
+    
 
     for (let index = 0; index < 10; index++) {
-      balls[index] = ball = {
-        bounce: 0.75,
-        radius: 30,
-        x: Math.floor(Math.random() * canvas.width),
-        y: Math.floor(Math.random() * canvas.height),
-        //TODO: change velX,velY with user mouse speed
-        velX: (Math.random() * 15 + 5) * (Math.floor(Math.random() * 2 || -1)),
-        velY: (Math.random() * 15 + 5) * (Math.floor(Math.random() * 2 || -1))
-      };
-      console.log("For " + balls[index].radius);
+      newBall();
+      //console.log("For " + balls[index].radius);
     }
-
-    console.log("For " + balls[0].bounce)
+    //console.log("For " + balls[0].bounce)
 
     window.requestAnimationFrame(update);
   }
@@ -49,48 +62,47 @@
   function update() {
     window.requestAnimationFrame(update);
     //console.log("update " + i + " " + balls[i].velY)
-    for (let i = 0; i < balls.length; i++) {
+    balls.forEach(ball => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      console.log("update " + i + " " + balls[i].velY)
+      console.log("update " + " " + ball.velY)
       // gravity
-      balls[i].velY += gravity;
+      ball.velY += gravity;
+
 
       // bottom bound / floor
-      if (balls[i].y + balls[i].radius >= canvas.height) {
-        balls[i].velY = -balls[i].velY
-        balls[i].y = canvas.height - balls[i].radius
+      if (ball.y + ball.radius >= canvas.height) {
+        ball.velY = -ball.velY
+        ball.y = canvas.height - ball.radius
       }
       // top bound / ceiling
-      if (balls[i].y - balls[i].radius <= 0) {
-        balls[i].velY = -balls[i].velY
-        balls[i].y = balls[i].radius
+      if (ball.y - ball.radius <= 0) {
+        ball.velY = -ball.velY
+        ball.y = ball.radius
       }
 
       // left bound
-      if (balls[i].x - balls[i].radius <= 0) {
-        balls[i].velX = -balls[i].velX
-        balls[i].x = balls[i].radius
+      if (ball.x - ball.radius <= 0) {
+        ball.velX = -ball.velX
+        ball.x = ball.radius
       }
       // right bound
-      if (balls[i].x + balls[i].radius >= canvas.width) {
-        balls[i].velX = -balls[i].velX
-        balls[i].x = canvas.width - balls[i].radius
+      if (ball.x + ball.radius >= canvas.width) {
+        ball.velX = -ball.velX
+        ball.x = canvas.width - ball.radius
       }
 
-      // balls[i]s[i] position 
-      balls[i].x += balls[i].velX;
-      balls[i].y += balls[i].velY;
+      // balls[i] position 
+      ball.x += ball.velX;
+      ball.y += ball.velY;
 
     //draw(balls[0]);
-  }
+  });
+
+  
 
   balls.forEach(ball => {
     draw(ball);
   });
-  }
-
-  function Loop(){
-
   }
 
   document.addEventListener('DOMContentLoaded', init);
