@@ -34,10 +34,15 @@
     friction = 0;
 
     //TODO: Make a script that get the max widht of a device and sottrae the canvas width
-    canvas.onmouseover = function (e) {
-      ball.x = e.clientX - 450;
-      ball.y = e.clientY - 40;
-      newBall();
+    /* PDF 1 -  new balls should be generated when the use clicks and drags the mouse 
+    ho inserito onclick dentro onmove perché altrimentri si creavano troppe palline
+    */
+    canvas.onmousemove = function (e) {
+      //ball.x = e.clientX - 450;
+      //ball.y = e.clientY - 40;
+      canvas.onclick = function (e) {
+        newBall();
+      };
     };
     
 
