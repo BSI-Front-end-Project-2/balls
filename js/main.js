@@ -26,7 +26,14 @@ function ballSizeDec() {
     }
   });
 }
-function bouncingDec() { }
+function removeBall() {
+  if (balls.length >= 0) {
+    balls.shift();
+    if (balls.length == 0) {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+  }
+}
 function speedInc() { }
 function colorPal() { }
 
