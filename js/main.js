@@ -1,7 +1,6 @@
 //IIFE Function that runs as soon as it is defined
-(function () {
   let canvas, ctx, gravity, friction, ball;
-  var balls = [];
+  var balls = [], requestId;
 
   function newBall(){
     balls.push( ball = {
@@ -19,7 +18,6 @@
   function ballSizeDec() {}
   function bouncingDec() {}
   function speedInc() {}
-  function pause() {}
   function colorPal(){}
 
   // End TODO <--
@@ -52,7 +50,7 @@
     }
     //console.log("For " + balls[0].bounce)
 
-    window.requestAnimationFrame(update);
+    //window.requestAnimationFrame(update);
   }
 
   function draw(balln) {
@@ -64,12 +62,18 @@
     ctx.fill();
   }
   //console.log("pre update " + balls[0].velY)
+
+  function animationLoop(timestamp)
+{
+      // Draw
+      update();
+}
   function update() {
-    window.requestAnimationFrame(update);
+    requestId = requestAnimationFrame(update);
     //console.log("update " + i + " " + balls[i].velY)
     balls.forEach(ball => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      console.log("update " + " " + ball.velY)
+      //console.log("update " + " " + ball.velY)
       // gravity
       ball.velY += gravity;
 
@@ -111,4 +115,14 @@
   }
 
   document.addEventListener('DOMContentLoaded', init);
-})();
+  function start() {
+    // Start the animation loop, targets 60 frames/s
+     requestId = requestAnimationFrame(animationLoop);
+     console.log(requestId);
+  }
+  function stop() {
+    if (requestId) {
+      console.log(requestId);
+       cancelAnimationFrame(requestId);
+    }
+  }
