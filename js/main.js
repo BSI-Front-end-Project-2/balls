@@ -123,11 +123,13 @@ function update() {
     //draw(balls[0]);
   });
 
-
-
   balls.forEach(ball => {
     draw(ball);
   });
+
+  //Counter Balls
+  var counter = balls.length;
+  document.getElementById("counter").textContent = counter;
 }
 
 document.addEventListener('DOMContentLoaded', init);
