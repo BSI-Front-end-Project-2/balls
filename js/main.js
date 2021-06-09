@@ -1,6 +1,7 @@
 //IIFE Function that runs as soon as it is defined
 let canvas, ctx, gravity, friction, ball;
 var balls = [], requestId;
+var isStarted = false;
 
 function newBall() {
   balls.push(ball = {
@@ -34,7 +35,16 @@ function removeBall() {
     }
   }
 }
-function speedInc() { }
+function speedInc() {
+  balls.forEach(ball => {
+    ball.velY -= 10;
+  });
+}
+function speedDec() {
+  balls.forEach(ball => {
+    ball.velY *= 0.80;
+  });
+}
 function colorPal() { }
 
 // End TODO <--
@@ -45,7 +55,7 @@ function init() {
   canvas.width = 800;
   canvas.height = 800;
 
-  gravity = 0.25;
+  gravity = 0.5;
   friction = 0;
 
   //TODO: Make a script that get the max widht of a device and sottrae the canvas width
@@ -93,7 +103,6 @@ function update() {
     // gravity
     ball.velY += gravity;
 
-
     // bottom bound / floor
     if (ball.y + ball.radius >= canvas.height) {
       ball.velY = -ball.velY
@@ -133,16 +142,25 @@ function update() {
 }
 
 document.addEventListener('DOMContentLoaded', init);
+
+// Start the animation loop
 function start() {
-  // Start the animation loop
-  requestId = requestAnimationFrame(animationLoop);
-  //console.log(requestId);
+
+  if (!isStarted) {
+    requestId = requestAnimationFrame(animationLoop);
+    //console.log(requestId);
+    isStarted = true;
+  }
 }
 function stop() {
-  if (requestId) {
-    //console.log(requestId);
-    // Stop the animation loop
-    cancelAnimationFrame(requestId);
+
+  if (isStarted) {
+    if (requestId) {
+      //console.log(requestId);
+      // Stop the animation loop
+      cancelAnimationFrame(requestId);
+      isStarted = false;
+    }
   }
 }
 
