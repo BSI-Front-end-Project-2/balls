@@ -1,11 +1,20 @@
 //IIFE Function that runs as soon as it is defined
 let canvas, ctx, gravity, friction, ball;
-var balls = [],
-  requestId;
-
-let colors = ['red', 'blue', 'yellow'].sort();
-let iColor = 0;
+var balls = [], requestId;
 var isStarted = false;
+
+const colors = ['#FF6633', '#FFB399', '#FF33FF', '#FFFF99', '#00B3E6', 
+'#E6B333', '#3366E6', '#999966', '#99FF99', '#B34D4D',
+'#80B300', '#809900', '#E6B3B3', '#6680B3', '#66991A', 
+'#FF99E6', '#CCFF1A', '#FF1A66', '#E6331A', '#33FFCC',
+'#66994D', '#B366CC', '#4D8000', '#B33300', '#CC80CC', 
+'#06664D', '#991AFF', '#E666FF', '#4DB3FF', '#1AB399',
+'#E666B3', '#33991A', '#CC9999', '#B3B31A', '#00E680', 
+'#4D8066', '#809980', '#E6FF80', '#1AFF33', '#999933',
+'#FF3380', '#CCCC00', '#66E64D', '#4D80CC', '#9900B3', 
+'#E64D66', '#4DB380', '#FF4D4D', '#99E6E6', '#6666FF'];
+let iColor = 0;
+let cColor = document.getElementById("color");
 
 function newBall() {
   balls.push(
@@ -52,20 +61,22 @@ function Test() {
   return iColor;
 }
 
-function colorPal() {
+function colorScroll(){
   let color = colors[Test()];
   console.log(color);
+  document.getElementById("colorPal").style.backgroundColor = color;
 
-  return color;
-  // ctx.fill();
-
-  // balls.forEach((ball) => {
-
-  // });
-  // ctx.fillStyle = color;
-  // ctx.fill();
-  // document.getElementById('color').textContent = color;
 }
+
+function colorPal() {
+  //let color = colors[Test()];
+  color = colors[iColor];
+  console.log(color);
+  // document.getElementById('color').textContent = color;
+  return color;
+}
+
+
 function speedInc() {
   balls.forEach((ball) => {
     ball.velY -= 10;
@@ -76,7 +87,6 @@ function speedDec() {
     ball.velY *= 0.8;
   });
 }
-function colorPal() {}
 
 // End TODO <--
 function init() {
@@ -110,11 +120,11 @@ function init() {
   //window.requestAnimationFrame(update);
 }
 
-function draw(balln) {
+function draw(balln, color) {
   //ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.beginPath();
   //TODO: Change color from user selection
-  ctx.fillStyle = colorPal();
+  ctx.fillStyle = color;
   ctx.arc(balln.x, balln.y, balln.radius, 0, Math.PI * 2);
   ctx.fill();
 }
@@ -124,10 +134,12 @@ function animationLoop(timestamp) {
   // Draw
   update();
 }
+var ran;
 function update() {
   requestId = requestAnimationFrame(update);
   //console.log("update " + i + " " + balls[i].velY)
   balls.forEach((ball) => {
+    
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     //console.log("update " + " " + ball.velY)
     // bottom bound / floor
@@ -171,13 +183,18 @@ function update() {
     //draw(balls[0]);
   });
 
+  document.getElementById("color").addEventListener('click', function(){
+      color = colorPal();
+  });
+  
   balls.forEach((ball) => {
-    draw(ball);
+    draw(ball, color);
   });
 
   //Counter Balls
   var counter = balls.length;
   document.getElementById('counter').textContent = counter;
+  
 }
 
 document.addEventListener('DOMContentLoaded', init);
@@ -216,3 +233,4 @@ document.addEventListener('keydown', function (keyEvent) {
     ballSizeDec();
   }
 });
+ 
