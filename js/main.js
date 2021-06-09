@@ -1,26 +1,32 @@
 //IIFE Function that runs as soon as it is defined
 let canvas, ctx, gravity, friction, ball;
-var balls = [], requestId;
+var balls = [],
+  requestId;
+
+let colors = ['red', 'blue', 'yellow'].sort();
+let iColor = 0;
 
 function newBall() {
-  balls.push(ball = {
-    bounce: 0.75,
-    radius: 30,
-    x: Math.floor(Math.random() * canvas.width),
-    y: Math.floor(Math.random() * canvas.height),
-    //TODO: change velX,velY with user mouse speed
-    velX: (Math.random() * 15 + 5) * (Math.floor(Math.random() * 2 || -1)),
-    velY: (Math.random() * 15 + 5) * (Math.floor(Math.random() * 2 || -1))
-  });
+  balls.push(
+    (ball = {
+      bounce: 0.75,
+      radius: 30,
+      x: Math.floor(Math.random() * canvas.width),
+      y: Math.floor(Math.random() * canvas.height),
+      //TODO: change velX,velY with user mouse speed
+      velX: (Math.random() * 15 + 5) * Math.floor(Math.random() * 2 || -1),
+      velY: (Math.random() * 15 + 5) * Math.floor(Math.random() * 2 || -1),
+    })
+  );
 }
 // TODO -->
 function ballSizeInc() {
-  balls.forEach(ball => {
+  balls.forEach((ball) => {
     ball.radius += 2;
   });
 }
 function ballSizeDec() {
-  balls.forEach(ball => {
+  balls.forEach((ball) => {
     if (ball.radius > 2) {
       ball.radius -= 2;
     }
@@ -34,8 +40,32 @@ function removeBall() {
     }
   }
 }
-function speedInc() { }
-function colorPal() { }
+function speedInc() {}
+
+function Test() {
+  if (iColor >= 0 && iColor < colors.length - 1) {
+    iColor++;
+  } else {
+    iColor = 0;
+  }
+
+  return iColor;
+}
+
+function colorPal() {
+  let color = colors[Test()];
+  console.log(color);
+
+  return color;
+  // ctx.fill();
+
+  // balls.forEach((ball) => {
+
+  // });
+  // ctx.fillStyle = color;
+  // ctx.fill();
+  // document.getElementById('color').textContent = color;
+}
 
 // End TODO <--
 function init() {
@@ -46,10 +76,10 @@ function init() {
   canvas.height = 800;
 
   gravity = 0.25;
-  friction = 0;
+  friction = 0.98;
 
   //TODO: Make a script that get the max widht of a device and sottrae the canvas width
-  /* PDF 1 -  new balls should be generated when the use clicks and drags the mouse 
+  /* PDF 1 -  new balls should be generated when the use clicks and drags the mouse
   ho inserito onclick dentro onmove perché altrimentri si creavano troppe palline
   */
   canvas.onmousemove = function (e) {
@@ -59,7 +89,6 @@ function init() {
       newBall();
     };
   };
-
 
   for (let index = 0; index < 10; index++) {
     newBall();
@@ -74,7 +103,7 @@ function draw(balln) {
   //ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.beginPath();
   //TODO: Change color from user selection
-  ctx.fillStyle = 'red';
+  ctx.fillStyle = colorPal();
   ctx.arc(balln.x, balln.y, balln.radius, 0, Math.PI * 2);
   ctx.fill();
 }
@@ -87,49 +116,57 @@ function animationLoop(timestamp) {
 function update() {
   requestId = requestAnimationFrame(update);
   //console.log("update " + i + " " + balls[i].velY)
-  balls.forEach(ball => {
+  balls.forEach((ball) => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     //console.log("update " + " " + ball.velY)
-    // gravity
-    ball.velY += gravity;
-
-
     // bottom bound / floor
     if (ball.y + ball.radius >= canvas.height) {
-      ball.velY = -ball.velY
-      ball.y = canvas.height - ball.radius
+      ball.velX *= friction;
+      ball.velY = -ball.velY;
+      ball.y = canvas.height - ball.radius;
     }
     // top bound / ceiling
     if (ball.y - ball.radius <= 0) {
-      ball.velY = -ball.velY
-      ball.y = ball.radius
+      ball.velX *= friction;
+      ball.velY = -ball.velY;
+      ball.y = ball.radius;
     }
 
     // left bound
     if (ball.x - ball.radius <= 0) {
-      ball.velX = -ball.velX
-      ball.x = ball.radius
+      ball.velX = -ball.velX;
+      ball.x = ball.radius;
     }
     // right bound
     if (ball.x + ball.radius >= canvas.width) {
-      ball.velX = -ball.velX
-      ball.x = canvas.width - ball.radius
+      ball.velX = -ball.velX;
+      ball.x = canvas.width - ball.radius;
     }
 
-    // balls[i] position 
+    if (ball.velX < 0.01 && ball.velX > -0.01) {
+      ball.velX = 0;
+    }
+    if (ball.velY < 0.01 && ball.velY > -0.01) {
+      ball.velY = 0;
+    }
+
+    // gravity
+    ball.velY += gravity;
+
+    // balls[i] position
     ball.x += ball.velX;
     ball.y += ball.velY;
 
     //draw(balls[0]);
   });
 
-  balls.forEach(ball => {
+  balls.forEach((ball) => {
     draw(ball);
   });
 
   //Counter Balls
   var counter = balls.length;
-  document.getElementById("counter").textContent = counter;
+  document.getElementById('counter').textContent = counter;
 }
 
 document.addEventListener('DOMContentLoaded', init);
@@ -146,10 +183,15 @@ function stop() {
   }
 }
 
-document.addEventListener("keydown", function (keyEvent) {
-  if (keyEvent.key == "+") {
+document.addEventListener('keydown', function (keyEvent) {
+  if (keyEvent.key == '+') {
     ballSizeInc();
-  } if (keyEvent.key == "-") {
+  }
+  if (keyEvent.key == '-') {
     ballSizeDec();
+  }
+
+  if (keyEvent.key == 'c') {
+    colorPal();
   }
 });
