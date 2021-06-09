@@ -41,7 +41,6 @@ function removeBall() {
     }
   }
 }
-function speedInc() {}
 
 function Test() {
   if (iColor >= 0 && iColor < colors.length - 1) {
