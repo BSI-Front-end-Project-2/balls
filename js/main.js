@@ -14,7 +14,7 @@ const colors = ['#FF6633', '#FFB399', '#FF33FF', '#FFFF99', '#00B3E6',
 '#FF3380', '#CCCC00', '#66E64D', '#4D80CC', '#9900B3', 
 '#E64D66', '#4DB380', '#FF4D4D', '#99E6E6', '#6666FF'];
 let iColor = 0;
-let cColor = document.getElementById("color");
+let cColor = document.getElementById("colorPal");
 
 function newBall() {
   balls.push(
@@ -32,10 +32,7 @@ function newBall() {
 // TODO -->
 function ballSizeInc() {
   balls.forEach((ball) => {
-    if(ball.radius<50)
-    {
-      ball.radius += 2;
-    }
+    ball.radius += 2;
   });
 }
 function ballSizeDec() {
@@ -67,8 +64,7 @@ function Test() {
 function colorScroll(){
   let color = colors[Test()];
   console.log(color);
-  document.getElementById("colorPal").style.backgroundColor = color;
-
+  cColor.style.backgroundColor = color;
 }
 
 function colorPal() {
@@ -79,10 +75,14 @@ function colorPal() {
   return color;
 }
 
+var color = colorPal();
+cColor.style.backgroundColor = color;
+
 
 function speedInc() {
   balls.forEach((ball) => {
     ball.velY -= 10;
+    
   });
 }
 function speedDec() {
@@ -96,8 +96,8 @@ function init() {
   canvas = document.getElementById('ballsCanvas');
   ctx = canvas.getContext('2d');
 
-  canvas.width = window.innerWidth-(window.innerWidth*0.2);
-  canvas.height = window.innerHeight-(window.innerHeight*0.2);
+  canvas.width = 800;
+  canvas.height = 800;
 
   gravity = 0.25;
   friction = 0.98;
@@ -106,15 +106,15 @@ function init() {
   /* PDF 1 -  new balls should be generated when the use clicks and drags the mouse
   ho inserito onclick dentro onmove perché altrimentri si creavano troppe palline
   */
-  canvas.onmousemove = function (e) {
+  canvas.onclick = function (e) {
     //ball.x = e.clientX - 450;
     //ball.y = e.clientY - 40;
-    canvas.onclick = function (e) {
+    canvas.onmousemove = function (e) {
       newBall();
     };
   };
 
-  for (let index = 0; index < 50; index++) {
+  for (let index = 0; index < 10; index++) {
     newBall();
     //console.log("For " + balls[index].radius);
   }
@@ -137,12 +137,7 @@ function animationLoop(timestamp) {
   // Draw
   update();
 }
-var ran;
 function update() {
-
-  canvas.width = window.innerWidth-(window.innerWidth*0.3);
-  canvas.height = window.innerHeight-(window.innerHeight*0.2);
-
   requestId = requestAnimationFrame(update);
   //console.log("update " + i + " " + balls[i].velY)
   balls.forEach((ball) => {
@@ -178,6 +173,10 @@ function update() {
     }
     if (ball.velY < 0.01 && ball.velY > -0.01) {
       ball.velY = 0;
+    }
+
+    if (ball.velX == 0 && ball.velY != 0) {
+      ball.velX = (Math.random() * 15 + 5);
     }
 
     // gravity
