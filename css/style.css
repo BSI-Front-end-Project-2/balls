@@ -1,3 +1,7 @@
+body{
+  overflow: hidden;
+}
+
 #canvasContainer {
   display: block;
   margin: 0 auto;

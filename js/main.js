@@ -32,7 +32,10 @@ function newBall() {
 // TODO -->
 function ballSizeInc() {
   balls.forEach((ball) => {
-    ball.radius += 2;
+    if(ball.radius<50)
+    {
+      ball.radius += 2;
+    }
   });
 }
 function ballSizeDec() {
@@ -111,7 +114,7 @@ function init() {
     };
   };
 
-  for (let index = 0; index < 10; index++) {
+  for (let index = 0; index < 50; index++) {
     newBall();
     //console.log("For " + balls[index].radius);
   }
