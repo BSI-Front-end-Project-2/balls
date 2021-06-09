@@ -51,7 +51,7 @@ function removeBall() {
   }
 }
 
-function Test() {
+function colorRing() {
   if (iColor >= 0 && iColor < colors.length - 1) {
     iColor++;
   } else {
@@ -62,13 +62,13 @@ function Test() {
 }
 
 function colorScroll(){
-  let color = colors[Test()];
+  let color = colors[colorRing()];
   console.log(color);
   cColor.style.backgroundColor = color;
 }
 
 function colorPal() {
-  //let color = colors[Test()];
+  //let color = colors[colorRing()];
   color = colors[iColor];
   console.log(color);
   // document.getElementById('color').textContent = color;
@@ -90,7 +90,10 @@ function speedDec() {
     ball.velY *= 0.8;
   });
 }
-
+function createBall(){ 
+  
+ // };
+};
 // End TODO <--
 function init() {
   canvas = document.getElementById('ballsCanvas');
@@ -106,14 +109,17 @@ function init() {
   /* PDF 1 -  new balls should be generated when the use clicks and drags the mouse
   ho inserito onclick dentro onmove perché altrimentri si creavano troppe palline
   */
-  canvas.onclick = function (e) {
+  var mouseIsDown = false
+  canvas.addEventListener('mousedown', function(){mouseIsDown = true})
+  canvas.addEventListener('mouseup', function(){mouseIsDown = false})
+  //canvas.onmousedown = function (e) {
     //ball.x = e.clientX - 450;
     //ball.y = e.clientY - 40;
-    canvas.onmousemove = function (e) {
-      newBall();
-    };
-  };
-
+    canvas.addEventListener('mousemove', function(){
+      if(mouseIsDown){
+        newBall();
+      }
+  });
   for (let index = 0; index < 10; index++) {
     newBall();
     //console.log("For " + balls[index].radius);
