@@ -165,9 +165,15 @@ function stop() {
 }
 
 document.addEventListener("keydown", function (keyEvent) {
+  //console.log(keyEvent);
   if (keyEvent.key == "+") {
-    ballSizeInc();
+    speedInc();
   } if (keyEvent.key == "-") {
+    speedDec();
+  } if (keyEvent.key == "ArrowUp") {
+    ballSizeInc();
+  } if (keyEvent.key == "ArrowDown") {
     ballSizeDec();
   }
+
 });
