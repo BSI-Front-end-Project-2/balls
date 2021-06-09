@@ -5,6 +5,7 @@ var balls = [],
 
 let colors = ['red', 'blue', 'yellow'].sort();
 let iColor = 0;
+var isStarted = false;
 
 function newBall() {
   balls.push(
@@ -66,6 +67,17 @@ function colorPal() {
   // ctx.fill();
   // document.getElementById('color').textContent = color;
 }
+function speedInc() {
+  balls.forEach((ball) => {
+    ball.velY -= 10;
+  });
+}
+function speedDec() {
+  balls.forEach((ball) => {
+    ball.velY *= 0.8;
+  });
+}
+function colorPal() {}
 
 // End TODO <--
 function init() {
@@ -170,28 +182,38 @@ function update() {
 }
 
 document.addEventListener('DOMContentLoaded', init);
+
+// Start the animation loop
 function start() {
-  // Start the animation loop
-  requestId = requestAnimationFrame(animationLoop);
-  //console.log(requestId);
+  if (!isStarted) {
+    requestId = requestAnimationFrame(animationLoop);
+    //console.log(requestId);
+    isStarted = true;
+  }
 }
 function stop() {
-  if (requestId) {
-    //console.log(requestId);
-    // Stop the animation loop
-    cancelAnimationFrame(requestId);
+  if (isStarted) {
+    if (requestId) {
+      //console.log(requestId);
+      // Stop the animation loop
+      cancelAnimationFrame(requestId);
+      isStarted = false;
+    }
   }
 }
 
 document.addEventListener('keydown', function (keyEvent) {
+  //console.log(keyEvent);
   if (keyEvent.key == '+') {
-    ballSizeInc();
+    speedInc();
   }
   if (keyEvent.key == '-') {
-    ballSizeDec();
+    speedDec();
   }
-
-  if (keyEvent.key == 'c') {
-    colorPal();
+  if (keyEvent.key == 'ArrowUp') {
+    ballSizeInc();
+  }
+  if (keyEvent.key == 'ArrowDown') {
+    ballSizeDec();
   }
 });
