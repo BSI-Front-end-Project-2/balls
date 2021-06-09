@@ -1,7 +1,7 @@
 import Ball from './Ball.js';
 // some default values
 const defaultConfig = {
-  width: 500,
+  width: 100,
   height: 500,
   gravity: 0.25,
   friction: 0.98,

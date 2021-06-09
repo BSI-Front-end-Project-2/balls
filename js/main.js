@@ -93,8 +93,8 @@ function init() {
   canvas = document.getElementById('ballsCanvas');
   ctx = canvas.getContext('2d');
 
-  canvas.width = 800;
-  canvas.height = 800;
+  canvas.width = window.innerWidth-(window.innerWidth*0.2);
+  canvas.height = window.innerHeight-(window.innerHeight*0.2);
 
   gravity = 0.25;
   friction = 0.98;
@@ -136,6 +136,10 @@ function animationLoop(timestamp) {
 }
 var ran;
 function update() {
+
+  canvas.width = window.innerWidth-(window.innerWidth*0.3);
+  canvas.height = window.innerHeight-(window.innerHeight*0.2);
+
   requestId = requestAnimationFrame(update);
   //console.log("update " + i + " " + balls[i].velY)
   balls.forEach((ball) => {
