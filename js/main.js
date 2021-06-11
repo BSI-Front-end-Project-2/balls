@@ -3,6 +3,11 @@ let canvas, ctx, gravity, friction, ball;
 var balls = [], requestId;
 var isStarted = false;
 
+addEventListener('resize', function(){
+  canvas.width = window.innerWidth-(window.innerWidth*0.15);
+  canvas.height = window.innerHeight-(window.innerHeight*0.15);
+})
+
 const colors = ['#FF6633', '#FFB399', '#FF33FF', '#FFFF99', '#00B3E6', 
 '#E6B333', '#3366E6', '#999966', '#99FF99', '#B34D4D',
 '#80B300', '#809900', '#E6B3B3', '#6680B3', '#66991A', 
@@ -99,8 +104,8 @@ function init() {
   canvas = document.getElementById('ballsCanvas');
   ctx = canvas.getContext('2d');
 
-  canvas.width = 800;
-  canvas.height = 800;
+  canvas.width = window.innerWidth-(window.innerWidth*0.15);
+  canvas.height = window.innerHeight-(window.innerHeight*0.15);
 
   gravity = 0.25;
   friction = 0.98;
