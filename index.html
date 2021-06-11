@@ -13,30 +13,36 @@
     <link rel="stylesheet" href="css/style.css" />
     <!-- End of Stylesheet -->
   </head>
+
   <body>
     <!-- Container -->
     <div id="container">
-      <h1>Let's Go!</h1>
+      <h1>BALLS</h1>
       <!-- Canvas Container -->
       <div id="canvasContainer">
         <canvas id="ballsCanvas"></canvas>
       </div>
       <!-- End of Canvas Container -->
     </div>
-    <button onclick="start()">Start animation</button>
-<button onclick="stop()">Stop animation</button>
-<button onclick="ballSizeInc()">Increment balls size ↑</button>
-<button onclick="ballSizeDec()">Decrement balls size ↓</button>
-<button onclick="removeBall()">Remove ball</button>
-<button id="color">Change Color</button>
-<button onclick="colorScroll()" id="colorPal"></button>
-<button onclick="speedInc()">Speed increment +</button>
-<button onclick="speedDec()">Speed Decrement -</button>
+
+    <div id="buttons">
+      <button onclick="start()">Start animation</button>
+      <button onclick="stop()">Stop animation</button>
+      <button onclick="ballSizeInc()">Increment balls size ↑</button>
+      <button onclick="ballSizeDec()">Decrement balls size ↓</button>
+      <button onclick="removeBall()">Remove ball</button>
+      <button onclick="speedInc()">Speed increment +</button>
+      <button onclick="speedDec()">Speed Decrement -</button>
+      <button id="color">Change Color</button>
+      <button onclick="colorScroll()" id="colorPal"></button>
+    </div>
 <p id="counter"></p>
 </body>
+
     <!-- End of Container -->
     <!-- Scripts -->
     <script src="js/main.js"></script>
     <!-- End of Scripts -->
   </body>
 </html>
+
