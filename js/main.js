@@ -1,25 +1,72 @@
 //IIFE Function that runs as soon as it is defined
 let canvas, ctx, gravity, friction, ball;
-var balls = [], requestId;
+var balls = [],
+  requestId;
 var isStarted = false;
 
-addEventListener('resize', function(){
-  canvas.width = window.innerWidth-(window.innerWidth*0.15);
-  canvas.height = window.innerHeight-(window.innerHeight*0.15);
-})
+let xDirection, yDirection;
+let oldX = 0,
+  oldY = 0;
 
-const colors = ['#FF6633', '#FFB399', '#FF33FF', '#FFFF99', '#00B3E6', 
-'#E6B333', '#3366E6', '#999966', '#99FF99', '#B34D4D',
-'#80B300', '#809900', '#E6B3B3', '#6680B3', '#66991A', 
-'#FF99E6', '#CCFF1A', '#FF1A66', '#E6331A', '#33FFCC',
-'#66994D', '#B366CC', '#4D8000', '#B33300', '#CC80CC', 
-'#06664D', '#991AFF', '#E666FF', '#4DB3FF', '#1AB399',
-'#E666B3', '#33991A', '#CC9999', '#B3B31A', '#00E680', 
-'#4D8066', '#809980', '#E6FF80', '#1AFF33', '#999933',
-'#FF3380', '#CCCC00', '#66E64D', '#4D80CC', '#9900B3', 
-'#E64D66', '#4DB380', '#FF4D4D', '#99E6E6', '#6666FF'];
+addEventListener('resize', function () {
+  canvas.width = window.innerWidth - window.innerWidth * 0.15;
+  canvas.height = window.innerHeight - window.innerHeight * 0.15;
+});
+
+const colors = [
+  '#FF6633',
+  '#FFB399',
+  '#FF33FF',
+  '#FFFF99',
+  '#00B3E6',
+  '#E6B333',
+  '#3366E6',
+  '#999966',
+  '#99FF99',
+  '#B34D4D',
+  '#80B300',
+  '#809900',
+  '#E6B3B3',
+  '#6680B3',
+  '#66991A',
+  '#FF99E6',
+  '#CCFF1A',
+  '#FF1A66',
+  '#E6331A',
+  '#33FFCC',
+  '#66994D',
+  '#B366CC',
+  '#4D8000',
+  '#B33300',
+  '#CC80CC',
+  '#06664D',
+  '#991AFF',
+  '#E666FF',
+  '#4DB3FF',
+  '#1AB399',
+  '#E666B3',
+  '#33991A',
+  '#CC9999',
+  '#B3B31A',
+  '#00E680',
+  '#4D8066',
+  '#809980',
+  '#E6FF80',
+  '#1AFF33',
+  '#999933',
+  '#FF3380',
+  '#CCCC00',
+  '#66E64D',
+  '#4D80CC',
+  '#9900B3',
+  '#E64D66',
+  '#4DB380',
+  '#FF4D4D',
+  '#99E6E6',
+  '#6666FF',
+];
 let iColor = 0;
-let cColor = document.getElementById("colorPal");
+let cColor = document.getElementById('colorPal');
 
 function newBall() {
   balls.push(
@@ -66,7 +113,7 @@ function colorRing() {
   return iColor;
 }
 
-function colorScroll(){
+function colorScroll() {
   let color = colors[colorRing()];
   console.log(color);
   cColor.style.backgroundColor = color;
@@ -83,11 +130,9 @@ function colorPal() {
 var color = colorPal();
 cColor.style.backgroundColor = color;
 
-
 function speedInc() {
   balls.forEach((ball) => {
     ball.velY -= 10;
-    
   });
 }
 function speedDec() {
@@ -95,17 +140,33 @@ function speedDec() {
     ball.velY *= 0.8;
   });
 }
-function createBall(){ 
-  
- // };
-};
+
+function getMouseDirection(e) {
+  if (oldX < e.pageX) {
+    xDirection = 'right';
+  } else {
+    xDirection = 'left';
+  }
+
+  if (oldY < e.pageY) {
+    yDirection = 'down';
+  } else {
+    yDirection = 'up';
+  }
+
+  oldX = e.pageX;
+  oldY = e.pageY;
+
+  console.log(xDirection + ' ' + yDirection);
+}
+
 // End TODO <--
 function init() {
   canvas = document.getElementById('ballsCanvas');
   ctx = canvas.getContext('2d');
 
-  canvas.width = window.innerWidth-(window.innerWidth*0.15);
-  canvas.height = window.innerHeight-(window.innerHeight*0.15);
+  canvas.width = window.innerWidth - window.innerWidth * 0.15;
+  canvas.height = window.innerHeight - window.innerHeight * 0.15;
 
   gravity = 0.25;
   friction = 0.98;
@@ -114,16 +175,21 @@ function init() {
   /* PDF 1 -  new balls should be generated when the use clicks and drags the mouse
   ho inserito onclick dentro onmove perché altrimentri si creavano troppe palline
   */
-  var mouseIsDown = false
-  canvas.addEventListener('mousedown', function(){mouseIsDown = true})
-  canvas.addEventListener('mouseup', function(){mouseIsDown = false})
+  var mouseIsDown = false;
+  canvas.addEventListener('mousedown', function () {
+    mouseIsDown = true;
+  });
+  canvas.addEventListener('mouseup', function () {
+    mouseIsDown = false;
+  });
+  canvas.addEventListener('mousemove', getMouseDirection, false);
   //canvas.onmousedown = function (e) {
-    //ball.x = e.clientX - 450;
-    //ball.y = e.clientY - 40;
-    canvas.addEventListener('mousemove', function(){
-      if(mouseIsDown){
-        newBall();
-      }
+  //ball.x = e.clientX - 450;
+  //ball.y = e.clientY - 40;
+  canvas.addEventListener('mousemove', function () {
+    if (mouseIsDown) {
+      newBall();
+    }
   });
   for (let index = 0; index < 10; index++) {
     newBall();
@@ -152,7 +218,6 @@ function update() {
   requestId = requestAnimationFrame(update);
   //console.log("update " + i + " " + balls[i].velY)
   balls.forEach((ball) => {
-    
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     //console.log("update " + " " + ball.velY)
     // bottom bound / floor
@@ -187,7 +252,7 @@ function update() {
     }
 
     if (ball.velX == 0 && ball.velY != 0) {
-      ball.velX = (Math.random() * 15 + 5);
+      ball.velX = Math.random() * 15 + 5;
     }
 
     // gravity
@@ -200,10 +265,10 @@ function update() {
     //draw(balls[0]);
   });
 
-  document.getElementById("color").addEventListener('click', function(){
-      color = colorPal();
+  document.getElementById('color').addEventListener('click', function () {
+    color = colorPal();
   });
-  
+
   balls.forEach((ball) => {
     draw(ball, color);
   });
@@ -211,7 +276,6 @@ function update() {
   //Counter Balls
   var counter = balls.length;
   document.getElementById('counter').textContent = counter;
-  
 }
 
 document.addEventListener('DOMContentLoaded', init);
@@ -250,4 +314,3 @@ document.addEventListener('keydown', function (keyEvent) {
     ballSizeDec();
   }
 });
- 
