@@ -1,7 +1,7 @@
 //IIFE Function that runs as soon as it is defined
 let canvas, ctx, gravity, friction, ball;
 var balls = [],
-  requestId;
+  requestId, pX, pY, dirX, dirY;
 var isStarted = false;
 
 let xDirection, yDirection;
@@ -69,18 +69,34 @@ let iColor = 0;
 let cColor = document.getElementById('colorPal');
 
 function newBall() {
+  var velPosX, velPosY;
+  if (dirX == "right")
+    velPosX = (Math.random() * 15 + 5) * Math.floor(Math.random() * 2);
+  else
+    velPosX = (Math.random() * 15 + 5) * Math.floor(Math.random() * -2);
+
+  if (dirY == "down")
+    velPosY = (Math.random() * 15 + 5 ) * Math.floor(Math.random() * 1);
+  else
+    velPosY = (Math.random() * 15 + 5) * Math.floor(Math.random() * -2);
+
   balls.push(
     (ball = {
       bounce: 0.75,
       radius: 30,
-      x: Math.floor(Math.random() * canvas.width),
-      y: Math.floor(Math.random() * canvas.height),
+      x: pX,
+      y: pY,
       //TODO: change velX,velY with user mouse speed
-      velX: (Math.random() * 15 + 5) * Math.floor(Math.random() * 2 || -1),
-      velY: (Math.random() * 15 + 5) * Math.floor(Math.random() * 2 || -1),
+      velX: velPosX,
+      velY: velPosY,
     })
   );
 }
+
+/**
+ * velX: (Math.random() * 15 + 5) * Math.floor(Math.random() * 2 || -1),
+ * velY: (Math.random() * 15 + 5) * Math.floor(Math.random() * 2 || -1),
+ */
 // TODO -->
 function ballSizeInc() {
   balls.forEach((ball) => {
@@ -148,6 +164,7 @@ function getMouseDirection(e) {
     xDirection = 'left';
   }
 
+
   if (oldY < e.pageY) {
     yDirection = 'down';
   } else {
@@ -157,7 +174,17 @@ function getMouseDirection(e) {
   oldX = e.pageX;
   oldY = e.pageY;
 
+  pX = e.clientX;
+  pY = e.clientY;
+  dirX = xDirection;
+  dirY = yDirection;
+
   console.log(xDirection + ' ' + yDirection);
+}
+
+function getMouseX(e) {
+  console.log(e.clientX);
+  return e.clientX
 }
 
 // End TODO <--
@@ -182,6 +209,8 @@ function init() {
   canvas.addEventListener('mouseup', function () {
     mouseIsDown = false;
   });
+  canvas.addEventListener('mousemove', getMouseX);
+
   canvas.addEventListener('mousemove', getMouseDirection, false);
   //canvas.onmousedown = function (e) {
   //ball.x = e.clientX - 450;
