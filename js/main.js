@@ -69,16 +69,8 @@ let iColor = 0;
 let cColor = document.getElementById('colorPal');
 
 function newBall() {
-  var velPosX, velPosY;
-  if (dirX == "right")
-    velPosX = (Math.random() * 15 + 5) * Math.floor(Math.random() * 2);
-  else
-    velPosX = (Math.random() * 15 + 5) * Math.floor(Math.random() * -2);
-
-  if (dirY == "down")
-    velPosY = (Math.random() * 15 + 5 ) * Math.floor(Math.random() * 1);
-  else
-    velPosY = (Math.random() * 15 + 5) * Math.floor(Math.random() * -2);
+  var velPosX = directionMouseX();
+  var velPosY = directionMouseY();
 
   balls.push(
     (ball = {
@@ -93,11 +85,26 @@ function newBall() {
   );
 }
 
-/**
- * velX: (Math.random() * 15 + 5) * Math.floor(Math.random() * 2 || -1),
- * velY: (Math.random() * 15 + 5) * Math.floor(Math.random() * 2 || -1),
- */
-// TODO -->
+function directionMouseX() {
+  var velPosX;
+  if (dirX == "right")
+    velPosX = (Math.random() * 15 + 5) * Math.floor(Math.random() * 2);
+  else
+    velPosX = (Math.random() * 15 + 5) * Math.floor(Math.random() * -2);
+
+  return velPosX;
+}
+
+function directionMouseY() {
+  var velPosY;
+  if (dirY == "down")
+    velPosY = (Math.random() * 15 + 5) * Math.floor(Math.random() * 1);
+  else
+    velPosY = (Math.random() * 15 + 5) * Math.floor(Math.random() * -2);
+
+  return velPosY;
+}
+
 function ballSizeInc() {
   balls.forEach((ball) => {
     ball.radius += 2;
@@ -131,14 +138,14 @@ function colorRing() {
 
 function colorScroll() {
   let color = colors[colorRing()];
-  console.log(color);
+  //console.log(color);
   cColor.style.backgroundColor = color;
 }
 
 function colorPal() {
   //let color = colors[colorRing()];
   color = colors[iColor];
-  console.log(color);
+  //console.log(color);
   // document.getElementById('color').textContent = color;
   return color;
 }
@@ -148,12 +155,22 @@ cColor.style.backgroundColor = color;
 
 function speedInc() {
   balls.forEach((ball) => {
-    ball.velY -= 10;
+    console.log(ball.velY);
+    if (ball.velY > 0 && ball.velY < 0.4  )
+    ball.velY += ((Math.random()) * 2 - 1) * 10;
+    else 
+    ball.velY *= 1.3;
+
+    if (ball.velX === 0)
+    ball.velX += ((Math.random()) * 2 - 1) * 10;
+    else 
+    ball.velX *= 1.3;
   });
 }
 function speedDec() {
   balls.forEach((ball) => {
     ball.velY *= 0.8;
+    ball.velX *= 0.8  ;
   });
 }
 
@@ -179,15 +196,17 @@ function getMouseDirection(e) {
   dirX = xDirection;
   dirY = yDirection;
 
-  console.log(xDirection + ' ' + yDirection);
+  //console.log(xDirection + ' ' + yDirection);
 }
 
+// credo si possa eliminare
+/*
 function getMouseX(e) {
   console.log(e.clientX);
   return e.clientX
 }
+*/
 
-// End TODO <--
 function init() {
   canvas = document.getElementById('ballsCanvas');
   ctx = canvas.getContext('2d');
@@ -195,8 +214,8 @@ function init() {
   canvas.width = window.innerWidth - window.innerWidth * 0.15;
   canvas.height = window.innerHeight - window.innerHeight * 0.15;
 
-  gravity = 0.25;
-  friction = 0.98;
+  gravity = 0.60;
+  friction = 0.80;
 
   //TODO: Make a script that get the max widht of a device and sottrae the canvas width
   /* PDF 1 -  new balls should be generated when the use clicks and drags the mouse
@@ -209,21 +228,21 @@ function init() {
   canvas.addEventListener('mouseup', function () {
     mouseIsDown = false;
   });
-  canvas.addEventListener('mousemove', getMouseX);
 
   canvas.addEventListener('mousemove', getMouseDirection, false);
-  //canvas.onmousedown = function (e) {
-  //ball.x = e.clientX - 450;
-  //ball.y = e.clientY - 40;
+
   canvas.addEventListener('mousemove', function () {
     if (mouseIsDown) {
       newBall();
     }
   });
+
+  /*
   for (let index = 0; index < 10; index++) {
     newBall();
     //console.log("For " + balls[index].radius);
   }
+  */
   //console.log("For " + balls[0].bounce)
 
   //window.requestAnimationFrame(update);
@@ -279,11 +298,11 @@ function update() {
     if (ball.velY < 0.01 && ball.velY > -0.01) {
       ball.velY = 0;
     }
-
+/*
     if (ball.velX == 0 && ball.velY != 0) {
       ball.velX = Math.random() * 15 + 5;
     }
-
+*/
     // gravity
     ball.velY += gravity;
 
