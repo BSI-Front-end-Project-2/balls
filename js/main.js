@@ -1,4 +1,5 @@
 //IIFE Function that runs as soon as it is defined
+var song = document.getElementById("music");
 let canvas, ctx, gravity, friction, ball;
 var balls = [],
   requestId, pX, pY, dirX, dirY;
@@ -330,21 +331,32 @@ document.addEventListener('DOMContentLoaded', init);
 
 // Start the animation loop
 function start() {
+  
   if (!isStarted) {
     requestId = requestAnimationFrame(animationLoop);
     //console.log(requestId);
     isStarted = true;
+    playAudio();
   }
 }
 function stop() {
+  
   if (isStarted) {
     if (requestId) {
       //console.log(requestId);
       // Stop the animation loop
       cancelAnimationFrame(requestId);
       isStarted = false;
+      pauseAudio();
     }
   }
+}
+
+function playAudio() {
+  song.play();
+ }
+ function pauseAudio() {
+  song.pause();
 }
 
 document.addEventListener('keydown', function (keyEvent) {
