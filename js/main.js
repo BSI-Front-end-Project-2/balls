@@ -1,4 +1,9 @@
-//IIFE Function that runs as soon as it is defined
+/**
+ * this is the main js
+ * this file handle the game logic and event interactions
+ */
+
+
 var song = document.getElementById("music");
 let canvas, ctx, gravity, friction, ball;
 var balls = [],
@@ -234,7 +239,16 @@ function speedDec() {
 }
 /**
  * 
- * @param {*} e 
+ * @param {Event} 
+ * retrieve current mouse x and 
+ * calculate if pointer is located right or left
+ * from the previous x coordinate
+ * 
+ * retrieve current mouse y and 
+ * calculate if pointer is located up or down
+ * from the previous y coordinate
+ * 
+ * than old coordinated are updated
  */
 function getMouseDirection(e) {
   if (oldX < e.pageX) {
@@ -242,7 +256,6 @@ function getMouseDirection(e) {
   } else {
     xDirection = 'left';
   }
-
 
   if (oldY < e.pageY) {
     yDirection = 'down';
@@ -258,17 +271,12 @@ function getMouseDirection(e) {
   dirX = xDirection;
   dirY = yDirection;
 
-  //console.log(xDirection + ' ' + yDirection);
 }
 
-// credo si possa eliminare
-/*
-function getMouseX(e) {
-  console.log(e.clientX);
-  return e.clientX
-}
-*/
-
+/**
+ * init the game environment
+ * configurate gravity and friction 
+ */
 function init() {
   canvas = document.getElementById('ballsCanvas');
   ctx = canvas.getContext('2d');
@@ -279,9 +287,10 @@ function init() {
   gravity = 0.60;
   friction = 0.80;
 
-  //TODO: Make a script that get the max widht of a device and sottrae the canvas width
-  /* PDF 1 -  new balls should be generated when the use clicks and drags the mouse
-  ho inserito onclick dentro onmove perché altrimentri si creavano troppe palline
+  /**
+  *  Make a script that get the max width of a device and sub the canvas width
+  *  new balls should be generated when the user clicks and moves the mouse
+  *  a boolean handle ball creation which is allowed only if the mouse is pressed
   */
   var mouseIsDown = false;
   canvas.addEventListener('mousedown', function () {
@@ -299,37 +308,34 @@ function init() {
     }
   });
 
-  /*
-  for (let index = 0; index < 10; index++) {
-    newBall();
-    //console.log("For " + balls[index].radius);
-  }
-  */
-  //console.log("For " + balls[0].bounce)
-
-  //window.requestAnimationFrame(update);
 }
 
+/**
+ * 
+ * @param {*} balln the ball to use
+ * @param {*} color for filling the ball
+ * 
+ * draw balls depending on color and ball parameters configuration
+ */
 function draw(balln, color) {
-  //ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.beginPath();
-  //TODO: Change color from user selection
   ctx.fillStyle = color;
   ctx.arc(balln.x, balln.y, balln.radius, 0, Math.PI * 2);
   ctx.fill();
 }
-//console.log("pre update " + balls[0].velY)
 
 function animationLoop(timestamp) {
   // Draw
   update();
 }
+/**
+ * update animation
+ */
 function update() {
   requestId = requestAnimationFrame(update);
-  //console.log("update " + i + " " + balls[i].velY)
+
   balls.forEach((ball) => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    //console.log("update " + " " + ball.velY)
     // bottom bound / floor
     if (ball.y + ball.radius >= canvas.height) {
       ball.velX *= friction;
@@ -360,21 +366,13 @@ function update() {
     if (ball.velY < 0.01 && ball.velY > -0.01) {
       ball.velY = 0;
     }
-    /*
-        if (ball.velX == 0 && ball.velY != 0) {
-          ball.velX = Math.random() * 15 + 5;
-        }
-    */
     // gravity
     ball.velY += gravity;
 
-    // balls[i] position
     ball.x += ball.velX;
     ball.y += ball.velY;
-
-    //draw(balls[0]);
   });
-
+  // shift color on the color container
   document.getElementById('color').addEventListener('click', function () {
     color = colorPal();
   });
@@ -395,17 +393,15 @@ function start() {
 
   if (!isStarted) {
     requestId = requestAnimationFrame(animationLoop);
-    //console.log(requestId);
     isStarted = true;
     playAudio();
   }
 }
+// animation is paused
 function stop() {
 
   if (isStarted) {
     if (requestId) {
-      //console.log(requestId);
-      // Stop the animation loop
       cancelAnimationFrame(requestId);
       isStarted = false;
       pauseAudio();
@@ -419,7 +415,9 @@ function playAudio() {
 function pauseAudio() {
   song.pause();
 }
-
+/**
+ * key event listeners for controller buttons
+ */
 document.addEventListener('keydown', function (keyEvent) {
   console.log(keyEvent);
   if (keyEvent.key == '+') {
