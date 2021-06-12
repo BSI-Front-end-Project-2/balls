@@ -8,12 +8,18 @@ var isStarted = false;
 let xDirection, yDirection;
 let oldX = 0,
   oldY = 0;
-
+/**
+ * handle the canvas responsiveness 
+ * by resizing the browser window 
+ * 0.15% less than real width and height
+ */
 addEventListener('resize', function () {
   canvas.width = window.innerWidth - window.innerWidth * 0.15;
   canvas.height = window.innerHeight - window.innerHeight * 0.15;
 });
-
+/**
+ * available colors
+ */
 const colors = [
   '#FF6633',
   '#FFB399',
@@ -68,7 +74,12 @@ const colors = [
 ];
 let iColor = 0;
 let cColor = document.getElementById('colorPal');
-
+/**
+ * create a new ball
+ * -keep x and y speed from mouse pointer
+ * -insert the ball in the array
+ * -set default values for radius and bounce
+ */
 function newBall() {
   var velPosX = directionMouseX();
   var velPosY = directionMouseY();
@@ -85,7 +96,10 @@ function newBall() {
     })
   );
 }
-
+/**
+ * 
+ * @returns 
+ */
 function directionMouseX() {
   var velPosX;
   if (dirX == "right")
@@ -146,10 +160,7 @@ function colorScroll() {
 }
 
 function colorPal() {
-  //let color = colors[colorRing()];
   color = colors[iColor];
-  //console.log(color);
-  // document.getElementById('color').textContent = color;
   return color;
 }
 
