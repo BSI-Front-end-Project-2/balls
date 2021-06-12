@@ -19,6 +19,7 @@ addEventListener('resize', function () {
 });
 /**
  * available colors
+ * in consts
  */
 const colors = [
   '#FF6633',
@@ -97,8 +98,8 @@ function newBall() {
   );
 }
 /**
- * 
- * @returns 
+ * set horizontal speed
+ * @returns mouse horizontal speed, could be negative or positive depending on the direction
  */
 function directionMouseX() {
   var velPosX;
@@ -109,7 +110,10 @@ function directionMouseX() {
 
   return velPosX;
 }
-
+/**
+ * set vertical speed
+ * @returns mouse vertical speed, could be negative or positive depending on the direction
+ */
 function directionMouseY() {
   var velPosY;
   if (dirY == "down")
@@ -119,7 +123,11 @@ function directionMouseY() {
 
   return velPosY;
 }
-
+/**
+ *  increase ball radius 
+ *  ball radius value must be less than 100
+ *  if less than 100 radius is incremented by 2
+ */
 function ballSizeInc() {
   if (ball.radius < 100) {
     balls.forEach((ball) => {
@@ -127,6 +135,11 @@ function ballSizeInc() {
     });
   }
 }
+/**
+ *  decrease ball radius 
+ *  ball radius value must be greater than 2
+ *  if greater than 2 radius is decremented by 2
+ */
 function ballSizeDec() {
   if (ball.radius > 2) {
     balls.forEach((ball) => {
@@ -134,6 +147,12 @@ function ballSizeDec() {
     });
   }
 }
+/**
+ *  remove a ball if at least one is present
+ *  if is the last ball the canvas must be cleared
+ *  since update will not be able anymore to clear
+ *  the canvas since ball length reach 0
+ */
 function removeBall() {
   if (balls.length >= 0) {
     balls.shift();
@@ -142,7 +161,13 @@ function removeBall() {
     }
   }
 }
-
+/**
+ * 
+ * @returns an index for scrolling colors 
+ * must be in range of 0 and colors array length
+ * than could increased, otherwise restart from color 
+ * at first index
+ */
 function colorRing() {
   if (iColor >= 0 && iColor < colors.length - 1) {
     iColor++;
@@ -152,13 +177,19 @@ function colorRing() {
 
   return iColor;
 }
-
+/**
+ * take a valid color index
+ * and than apply the color to the html element
+ */
 function colorScroll() {
   let color = colors[colorRing()];
   //console.log(color);
   cColor.style.backgroundColor = color;
 }
-
+/**
+ * 
+ * @returns a color name retrieved from the array
+ */
 function colorPal() {
   color = colors[iColor];
   return color;
@@ -166,7 +197,11 @@ function colorPal() {
 
 var color = colorPal();
 cColor.style.backgroundColor = color;
-
+/**
+ * if speed maintain a specific range, is incremented
+ * however if speed is near to zero, is resetted to a
+ * value either negative or positive. 
+ */
 function speedInc() {
 
   balls.forEach((ball) => {
@@ -187,6 +222,9 @@ function speedInc() {
     }
   });
 }
+/**
+ * speed id decremented
+ */
 function speedDec() {
 
   balls.forEach((ball) => {
@@ -194,7 +232,10 @@ function speedDec() {
     ball.velX *= 0.8;
   });
 }
-
+/**
+ * 
+ * @param {*} e 
+ */
 function getMouseDirection(e) {
   if (oldX < e.pageX) {
     xDirection = 'right';
