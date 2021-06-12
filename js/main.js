@@ -107,16 +107,20 @@ function directionMouseY() {
 }
 
 function ballSizeInc() {
-  balls.forEach((ball) => {
-    ball.radius += 2;
-  });
+  if (ball.radius < 100) 
+  {
+    balls.forEach((ball) => {
+        ball.radius += 2;
+    });
+  }
 }
 function ballSizeDec() {
-  balls.forEach((ball) => {
-    if (ball.radius > 2) {
-      ball.radius -= 2;
-    }
-  });
+  if (ball.radius > 2) 
+  {
+    balls.forEach((ball) => {   
+        ball.radius -= 2;
+    });
+  }
 }
 function removeBall() {
   if (balls.length >= 0) {
@@ -155,20 +159,22 @@ var color = colorPal();
 cColor.style.backgroundColor = color;
 
 function speedInc() {
+
   balls.forEach((ball) => {
     console.log(ball.velY);
     if (ball.velY > 0 && ball.velY < 0.4  )
-    ball.velY += ((Math.random()) * 2 - 1) * 10;
+      ball.velY += ((Math.random()) * 2 - 1) * 10;
     else 
-    ball.velY *= 1.3;
+      ball.velY *= 1.3;
 
     if (ball.velX === 0)
-    ball.velX += ((Math.random()) * 2 - 1) * 10;
+      ball.velX += ((Math.random()) * 2 - 1) * 10;
     else 
-    ball.velX *= 1.3;
+      ball.velX *= 1.3;
   });
 }
 function speedDec() {
+
   balls.forEach((ball) => {
     ball.velY *= 0.8;
     ball.velX *= 0.8  ;
@@ -332,7 +338,7 @@ document.addEventListener('DOMContentLoaded', init);
 // Start the animation loop
 function start() {
   
-  if (!isStarted) {
+  if ( ! isStarted) {
     requestId = requestAnimationFrame(animationLoop);
     //console.log(requestId);
     isStarted = true;
