@@ -16,7 +16,7 @@ Languages used for this project:
 We used github for collaborate purpose
 
 ## Files and project structure
-📦 ProjectSpace
+📦 balls-main
  ┣ 📂  public
  ┃  ┣ 📂 css
  ┃  ┃  ┣ 📜  style.css
