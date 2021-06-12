@@ -369,7 +369,7 @@ function pauseAudio() {
 }
 
 document.addEventListener('keydown', function (keyEvent) {
-  //console.log(keyEvent);
+  console.log(keyEvent);
   if (keyEvent.key == '+') {
     speedInc();
   }
@@ -381,5 +381,8 @@ document.addEventListener('keydown', function (keyEvent) {
   }
   if (keyEvent.key == 'ArrowDown') {
     ballSizeDec();
+  }
+  if (keyEvent.key == 'Backspace') {
+    removeBall();
   }
 });
