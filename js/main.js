@@ -107,18 +107,16 @@ function directionMouseY() {
 }
 
 function ballSizeInc() {
-  if (ball.radius < 100) 
-  {
+  if (ball.radius < 100) {
     balls.forEach((ball) => {
-        ball.radius += 2;
+      ball.radius += 2;
     });
   }
 }
 function ballSizeDec() {
-  if (ball.radius > 2) 
-  {
-    balls.forEach((ball) => {   
-        ball.radius -= 2;
+  if (ball.radius > 2) {
+    balls.forEach((ball) => {
+      ball.radius -= 2;
     });
   }
 }
@@ -162,22 +160,27 @@ function speedInc() {
 
   balls.forEach((ball) => {
     console.log(ball.velY);
-    if (ball.velY > 0 && ball.velY < 0.4  )
-      ball.velY += ((Math.random()) * 2 - 1) * 10;
-    else 
-      ball.velY *= 1.3;
+    console.log(ball.velX);
+    if (ball.velY < 80 && ball.velY > -80) {
+      if (ball.velY > 0 && ball.velY < 0.4)
+        ball.velY += ((Math.random()) * 2 - 1) * 10;
+      else
+        ball.velY *= 1.3;
+    }
 
-    if (ball.velX === 0)
-      ball.velX += ((Math.random()) * 2 - 1) * 10;
-    else 
-      ball.velX *= 1.3;
+    if (ball.velX < 80 && ball.velY > -80) {
+      if (ball.velX === 0)
+        ball.velX += ((Math.random()) * 2 - 1) * 10;
+      else
+        ball.velX *= 1.3;
+    }
   });
 }
 function speedDec() {
 
   balls.forEach((ball) => {
     ball.velY *= 0.8;
-    ball.velX *= 0.8  ;
+    ball.velX *= 0.8;
   });
 }
 
@@ -305,11 +308,11 @@ function update() {
     if (ball.velY < 0.01 && ball.velY > -0.01) {
       ball.velY = 0;
     }
-/*
-    if (ball.velX == 0 && ball.velY != 0) {
-      ball.velX = Math.random() * 15 + 5;
-    }
-*/
+    /*
+        if (ball.velX == 0 && ball.velY != 0) {
+          ball.velX = Math.random() * 15 + 5;
+        }
+    */
     // gravity
     ball.velY += gravity;
 
@@ -337,8 +340,8 @@ document.addEventListener('DOMContentLoaded', init);
 
 // Start the animation loop
 function start() {
-  
-  if ( ! isStarted) {
+
+  if (!isStarted) {
     requestId = requestAnimationFrame(animationLoop);
     //console.log(requestId);
     isStarted = true;
@@ -346,7 +349,7 @@ function start() {
   }
 }
 function stop() {
-  
+
   if (isStarted) {
     if (requestId) {
       //console.log(requestId);
@@ -360,8 +363,8 @@ function stop() {
 
 function playAudio() {
   song.play();
- }
- function pauseAudio() {
+}
+function pauseAudio() {
   song.pause();
 }
 
