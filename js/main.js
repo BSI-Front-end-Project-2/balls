@@ -3,8 +3,7 @@
  * this file handle the game logic and event interactions
  */
 
-
-var song = document.getElementById("music");
+var song = document.getElementById('music');
 let canvas, ctx, gravity, friction, ball;
 var balls = [],
   requestId, pX, pY, dirX, dirY;
@@ -108,11 +107,16 @@ let cColor = document.getElementById('colorPal');
 function newBall() {
   var velPosX = directionMouseX();
   var velPosY = directionMouseY();
+  var radius;
+  if (canvas.width < 785)
+    radius = 16;
+  else
+    radius = 30;
 
   balls.push(
     (ball = {
       bounce: 0.75,
-      radius: 30,
+      radius: radius,
       x: pX,
       y: pY,
       velX: velPosX,
@@ -126,7 +130,7 @@ function newBall() {
  */
 function directionMouseX() {
   var velPosX;
-  if (dirX == "right")
+  if (dirX == 'right')
     velPosX = (Math.random() * 15 + 5) * Math.floor(Math.random() * 2);
   else
     velPosX = (Math.random() * 15 + 5) * Math.floor(Math.random() * -2);
@@ -139,7 +143,7 @@ function directionMouseX() {
  */
 function directionMouseY() {
   var velPosY;
-  if (dirY == "down")
+  if (dirY == 'down')
     velPosY = (Math.random() * 15 + 5) * Math.floor(Math.random() * 1);
   else
     velPosY = (Math.random() * 15 + 5) * Math.floor(Math.random() * -2);
@@ -167,11 +171,11 @@ function ballSizeInc() {
  */
 function ballSizeDec() {
   if (isStarted) {
-    if (ball.radius > 2) {
-      balls.forEach((ball) => {
+    balls.forEach((ball) => {
+      if (ball.radius > 2) {
         ball.radius -= 2;
-      });
-    }
+      }
+    });
   }
 }
 /**
@@ -461,5 +465,12 @@ document.addEventListener('keydown', function (keyEvent) {
     if (keyEvent.key == 'Backspace') {
       removeBall();
     }
+    if (keyEvent.key == ' ') {
+      stop();
+    }
   }
+  else
+    if (keyEvent.key == ' ') {
+      start();
+    }
 });
