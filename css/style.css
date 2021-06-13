@@ -1,3 +1,4 @@
+/* Hidden the scrollbars, remove the UA margin and sets the bg-img, font color white */
 body {
   overflow: hidden;
   margin: 0;
@@ -5,6 +6,7 @@ body {
   color: white;
 }
 
+/* Main container, a flexbox container positioned in the center */
 #container {
   text-align: center;
   margin: 0 auto;
@@ -30,6 +32,7 @@ body {
   color: #000000;
 }
 
+/* Canvas container, positioned in the center */
 #canvasContainer {
   display: block;
   margin: 0 auto;
@@ -38,10 +41,10 @@ body {
   max-width: 100%;
 }
 
+/* Button container */
 #buttons-container {
   width: auto;
   margin: 1.3rem;
-  /*height: auto;*/
 }
 
 #buttons-container .row {
@@ -49,22 +52,18 @@ body {
   max-height: fit-content;
 }
 
-/* #buttons-container .row:nth-child(2) */
-
 #buttons-container .row:first-child {
   position: relative;
   left: 18px;
 }
 
 /* Tooltip container */
-
 .tooltip {
   position: relative;
   display: inline-block;
 }
 
 /* Tooltip text */
-
 .tooltip .tt-text {
   visibility: hidden;
   width: 120px;
@@ -85,7 +84,6 @@ body {
 }
 
 /* Tooltip arrow */
-
 .tooltip .tt-text::after {
   content: '';
   position: absolute;
@@ -98,12 +96,12 @@ body {
 }
 
 /* Show the tooltip text when you mouse over the tooltip container */
-
 .tooltip:hover .tt-text {
   visibility: visible;
   opacity: 1;
 }
 
+/* Pill button */
 button {
   border: none;
   margin: 0 3px;
@@ -115,6 +113,7 @@ button {
   cursor: pointer;
 }
 
+/* Color scroll button */
 button#colorPal {
   padding: 15px;
   background-color: #c3c3c3;
@@ -125,13 +124,15 @@ button#colorPal {
   cursor: pointer;
 }
 
+/* Media query for devices with max width of 785px */
 @media screen and (max-width: 785px) {
   #buttons-container {
     width: max-content;
     margin: 1.3rem 0;
     display: flex;
   }
-  #buttons-container .row:first-child, button#colorPal {
+  #buttons-container .row:first-child,
+  button#colorPal {
     left: 0;
   }
   button#colorPal {
