@@ -22,6 +22,12 @@
    canvas.width = window.innerWidth - window.innerWidth * 0.25;
    canvas.height = window.innerHeight - window.innerHeight * 0.25;
  });
+
+ window.onload = function() {
+  canvas.width = window.innerWidth - window.innerWidth * 0.25;
+  canvas.height = window.innerHeight - window.innerHeight * 0.25;
+}
+ 
  /**
   * available colors
   * in consts
