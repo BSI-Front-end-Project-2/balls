@@ -1,3 +1,8 @@
+body {
+  overflow: hidden;
+  margin: 0;
+}
+
 #canvasContainer {
   display: block;
   margin: 0 auto;
@@ -34,7 +39,7 @@
 }
 
 #buttons-container .row {
-  margin: 0.8rem;
+  margin: 1rem;
   min-height: fit-content;
 }
 
@@ -107,6 +112,7 @@ button {
   color: #ffffff;
   background-color: #6495ed;
   min-width: 158px;
+  margin: 0 5px;
 }
 
 button#colorPal {
