@@ -18,6 +18,8 @@ body {
 
 #container h1 {
   margin: 0.2rem;
+  text-shadow: 3px 3px 6px #000000;
+  color: #f1f1f1;
 }
 
 #container p {
@@ -38,7 +40,7 @@ body {
 #buttons-container {
   width: auto;
   margin: 1.3rem;
-  height: auto;
+  /*height: auto;*/
 }
 
 #buttons-container .row {
@@ -46,9 +48,11 @@ body {
   max-height: fit-content;
 }
 
-#buttons-container .row:nth-child(2) {
+/* #buttons-container .row:nth-child(2) */
+
+#buttons-container .row:first-child {
   position: relative;
-  right: 18px;
+  left: 18px;
 }
 
 /* Tooltip container */
@@ -101,21 +105,44 @@ body {
 
 button {
   border: none;
-  margin: 0 2px;
-  padding: 1.3%;
+  margin: 0 3px;
+  padding: 1.5%;
   border-radius: 25px;
   color: #ffffff;
   background-color: #6495ed;
-  min-width: 20rem;
+  min-width: 158px;
   cursor: pointer;
 }
 
 button#colorPal {
-  padding: 1.5rem;
+  padding: 15px;
   background-color: #c3c3c3;
   min-width: 15px;
   position: relative;
   bottom: 5px;
   left: 3px;
   cursor: pointer;
+}
+
+@media screen and (max-width: 785px) {
+  #buttons-container {
+    width: max-content;
+    margin: 1.3rem 0;
+    display: flex;
+  }
+  #buttons-container .row:first-child, button#colorPal {
+    left: 0;
+  }
+  button#colorPal {
+    bottom: 0;
+  }
+  button {
+    margin: 5px;
+    display: block;
+    min-width: 10rem;
+  }
+  #container p {
+    top: 51px;
+    left: 19%;
+  }
 }

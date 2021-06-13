@@ -14,18 +14,30 @@ let xDirection, yDirection;
 let oldX = 0,
   oldY = 0;
 /**
- * handle the canvas responsiveness 
- * by resizing the browser window 
- * 0.15% less than real width and height
- */
+* manage the reactivity of the canvas
+* scaling it by percentage based on the window
+*/
 addEventListener('resize', function () {
   canvas.width = window.innerWidth - window.innerWidth * 0.25;
-  canvas.height = window.innerHeight - window.innerHeight * 0.25;
+  if (window.innerWidth < 785) {
+    canvas.height = window.innerHeight - window.innerHeight * 0.32;
+  } else
+    canvas.height = window.innerHeight - window.innerHeight * 0.25;
+
 });
 
+/**
+* set the size of the canvas according to
+* to the size of the window
+*/
 window.onload = function () {
   canvas.width = window.innerWidth - window.innerWidth * 0.25;
-  canvas.height = window.innerHeight - window.innerHeight * 0.25;
+
+  if (window.innerWidth < 785) {
+    canvas.height = window.innerHeight - window.innerHeight * 0.32;
+  } else
+    canvas.height = window.innerHeight - window.innerHeight * 0.25;
+
 }
 
 /**
@@ -33,6 +45,7 @@ window.onload = function () {
  * in consts
  */
 const colors = [
+  '#FFBB55',
   '#FF6633',
   '#FFB399',
   '#FF33FF',
