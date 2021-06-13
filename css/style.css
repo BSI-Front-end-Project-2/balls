@@ -27,6 +27,7 @@ body {
   position: absolute;
   top: 50px;
   left: 50%;
+  color: #000000;
 }
 
 #canvasContainer {
