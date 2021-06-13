@@ -20,11 +20,16 @@ We used github for collaborate purpose
  ┣ 📂  public
  ┃  ┣ 📂 css
  ┃  ┃  ┣ 📜  style.css
+ ┃  ┣ 📂 icons
+ ┃  ┃  ┣📜  ico_ball.png
  ┃  ┣ 📂 js
- ┃  ┃     ┣ 📜  main.js
- ┃  ┃     ┣ 📜  scene.js
- ┃  ┣ 📂 audio
- ┃  ┃     ┣ 📜  game_song.mp3
+ ┃  ┃  ┣ 📜  main.js
+ ┃  ┃  ┣ 📜  scene.js
+ ┃  ┣ 📂 media
+ ┃  ┃  ┣ 📂 audio
+ ┃  ┃  ┃  ┣📜  game_song.mp3
+ ┃  ┃  ┣ 📂 img
+ ┃  ┃  ┃  ┣📜  wood.jpg
  ┃  ┗ 📜  index.html
  ┣ 📜  LICENSE
  ┗ 📜  README.md
@@ -50,10 +55,10 @@ requirements
     - [x] an onscreen counter that displays the current number of balls
 
 #### Optional
-- [ ] adding game rules
-- [ ] adding backgrounds and images
+- [x] adding game rules
+- [x] adding backgrounds and images
 - [x] adding sounds or music
-- [x] generate balls of random sizes and colors
+- [ ] generate balls of random sizes and colors
 
 #### Important
 - Use meaningful names
@@ -75,12 +80,14 @@ Add a slider to adjust gravity and impact the ball movement. You can add other f
 ## Browser compatibility
 - Chrome Fully Compatible
 - Mozilla Firefox Fully Compatible
+- Safari Fully Compatible
 - Not compatible with IE
 
 ## External resources
 The audio is the first song of 10 hours of gaming music copyright free, retrieved from youtube
 (https://www.youtube.com/watch?v=vAiScGnRfP8).
 Some Javascript and CSS things learned from [StackOverflow](https://stackoverflow.com/), [W3School](https://www.w3schools.com/) and [MDN](https://developer.mozilla.org/it/).
+Icon of web table by (https://www.flaticon.com)
 
 ## License and contact information
 

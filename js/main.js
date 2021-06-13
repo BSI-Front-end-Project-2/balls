@@ -342,8 +342,8 @@ function init() {
 
 /**
  * 
- * @param {*} balln the ball to use
- * @param {*} color for filling the ball
+ * @param {object} balln the ball to use
+ * @param {string} color for filling the ball
  * 
  * draw balls depending on color and ball parameters configuration
  */
