@@ -140,10 +140,13 @@
   *  if less than 100 radius is incremented by 2
   */
  function ballSizeInc() {
-   if (ball.radius < 100) {
-     balls.forEach((ball) => {
-       ball.radius += 2;
-     });
+   if(isStarted)
+   {
+      if (ball.radius < 100) {
+        balls.forEach((ball) => {
+          ball.radius += 2;
+        });
+      }
    }
  }
  /**
@@ -152,10 +155,13 @@
   *  if greater than 2 radius is decremented by 2
   */
  function ballSizeDec() {
-   if (ball.radius > 2) {
-     balls.forEach((ball) => {
-       ball.radius -= 2;
-     });
+   if(isStarted)
+   {
+      if (ball.radius > 2) {
+        balls.forEach((ball) => {
+          ball.radius -= 2;
+        });
+      }
    }
  }
  /**
@@ -165,11 +171,14 @@
   *  the canvas since ball length reach 0
   */
  function removeBall() {
-   if (balls.length >= 0) {
-     balls.shift();
-     if (balls.length == 0) {
-       ctx.clearRect(0, 0, canvas.width, canvas.height);
-     }
+   if(isStarted)
+   {
+      if (balls.length >= 0) {
+        balls.shift();
+        if (balls.length == 0) {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+      }
    }
  }
  /**
@@ -215,33 +224,38 @@
   */
  function speedInc() {
  
-   balls.forEach((ball) => {
-     console.log(ball.velY);
-     console.log(ball.velX);
-     if (ball.velY < 80 && ball.velY > -80) {
-       if (ball.velY > 0 && ball.velY < 0.4)
-         ball.velY += ((Math.random()) * 2 - 1) * 10;
-       else
-         ball.velY *= 1.3;
-     }
- 
-     if (ball.velX < 80 && ball.velY > -80) {
-       if (ball.velX === 0)
-         ball.velX += ((Math.random()) * 2 - 1) * 10;
-       else
-         ball.velX *= 1.3;
-     }
-   });
+    if(isStarted)
+    {
+        balls.forEach((ball) => {
+      
+          if (ball.velY < 80 && ball.velY > -80) {
+            if (ball.velY > 0 && ball.velY < 0.4)
+              ball.velY += ((Math.random()) * 2 - 1) * 10;
+            else
+              ball.velY *= 1.3;
+          }
+      
+          if (ball.velX < 80 && ball.velY > -80) {
+            if (ball.velX === 0)
+              ball.velX += ((Math.random()) * 2 - 1) * 10;
+            else
+              ball.velX *= 1.3;
+          }
+        });
+    }
  }
  /**
   * speed id decremented
   */
  function speedDec() {
  
-   balls.forEach((ball) => {
-     ball.velY *= 0.8;
-     ball.velX *= 0.8;
-   });
+  if(isStarted)
+  {
+      balls.forEach((ball) => {
+        ball.velY *= 0.8;
+        ball.velX *= 0.8;
+      });
+    }
  }
  /**
   * 
@@ -298,22 +312,22 @@
    *  new balls should be generated when the user clicks and moves the mouse
    *  a boolean handle ball creation which is allowed only if the mouse is pressed
    */
-   var mouseIsDown = false;
-   canvas.addEventListener('mousedown', function () {
-     mouseIsDown = true;
-   });
-   canvas.addEventListener('mouseup', function () {
-     mouseIsDown = false;
-   });
- 
-   canvas.addEventListener('mousemove', getMouseDirection, false);
- 
-   canvas.addEventListener('mousemove', function () {
-     if (mouseIsDown) {
-       newBall();
-     }
-   });
- 
+  var mouseIsDown = false;
+
+  canvas.addEventListener('mousedown', function () {
+    mouseIsDown = true;
+  });
+  canvas.addEventListener('mouseup', function () {
+    mouseIsDown = false;
+  });
+
+  canvas.addEventListener('mousemove', getMouseDirection, false);
+
+  canvas.addEventListener('mousemove', function () {
+    if (mouseIsDown && isStarted) {
+      newBall();
+    }
+  });
  }
  
  /**
@@ -332,7 +346,7 @@
  
  function animationLoop(timestamp) {
    // Draw
-   update();
+     update();
  }
  /**
   * update animation
@@ -425,20 +439,22 @@
   * key event listeners for controller buttons
   */
  document.addEventListener('keydown', function (keyEvent) {
-   console.log(keyEvent);
-   if (keyEvent.key == '+') {
-     speedInc();
-   }
-   if (keyEvent.key == '-') {
-     speedDec();
-   }
-   if (keyEvent.key == 'ArrowUp') {
-     ballSizeInc();
-   }
-   if (keyEvent.key == 'ArrowDown') {
-     ballSizeDec();
-   }
-   if (keyEvent.key == 'Backspace') {
-     removeBall();
-   }
+    if(isStarted)
+    {
+      if (keyEvent.key == '+') {
+        speedInc();
+      }
+      if (keyEvent.key == '-') {
+        speedDec();
+      }
+      if (keyEvent.key == 'ArrowUp') {
+        ballSizeInc();
+      }
+      if (keyEvent.key == 'ArrowDown') {
+        ballSizeDec();
+      }
+      if (keyEvent.key == 'Backspace') {
+        removeBall();
+      }
+    }
  });
