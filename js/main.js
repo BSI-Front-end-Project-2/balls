@@ -19,8 +19,8 @@ let oldX = 0,
  * 0.15% less than real width and height
  */
 addEventListener('resize', function () {
-  canvas.width = window.innerWidth - window.innerWidth * 0.15;
-  canvas.height = window.innerHeight - window.innerHeight * 0.15;
+  canvas.width = window.innerWidth - window.innerWidth * 0.20;
+  canvas.height = window.innerHeight - window.innerHeight * 0.20;
 });
 /**
  * available colors
@@ -281,8 +281,8 @@ function init() {
   canvas = document.getElementById('ballsCanvas');
   ctx = canvas.getContext('2d');
 
-  canvas.width = window.innerWidth - window.innerWidth * 0.15;
-  canvas.height = window.innerHeight - window.innerHeight * 0.15;
+  canvas.width = window.innerWidth - window.innerWidth * 0.20;
+  canvas.height = window.innerHeight - window.innerHeight * 0.20;
 
   gravity = 0.60;
   friction = 0.80;

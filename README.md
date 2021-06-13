@@ -98,3 +98,4 @@ E-mail:
   * Wassim Mansoury
 
 ## Changelog and version history
+first version 1.0.0
