@@ -41,22 +41,25 @@
 /* #buttons-container .row button:nth-child(2n + 0) {
   margin-bottom: 5px;
 } */
-/* #buttons-container .row:first-child {
+
+#buttons-container .row:first-child {
   position: relative;
-  left: 15px;
-} */
+  left: 18px;
+}
 
 body {
   overflow: hidden;
 }
 
 /* Tooltip container */
+
 .tooltip {
   position: relative;
   display: inline-block;
 }
 
 /* Tooltip text */
+
 .tooltip .tt-text {
   visibility: hidden;
   width: 120px;
@@ -65,20 +68,19 @@ body {
   text-align: center;
   padding: 5px 0;
   border-radius: 6px;
-
   /* Position the tooltip text */
   position: absolute;
   z-index: 1;
   top: 105%;
   left: 62%;
   margin-left: -60px;
-
   /* Fade in tooltip */
   opacity: 0;
   transition: opacity 0.3s;
 }
 
 /* Tooltip arrow */
+
 .tooltip .tt-text::after {
   content: '';
   position: absolute;
@@ -91,6 +93,7 @@ body {
 }
 
 /* Show the tooltip text when you mouse over the tooltip container */
+
 .tooltip:hover .tt-text {
   visibility: visible;
   opacity: 1;
@@ -98,6 +101,7 @@ body {
 
 button {
   border: none;
+  margin: 0 2px;
   padding: 1.5%;
   border-radius: 25px;
   color: #ffffff;
